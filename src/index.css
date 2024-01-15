@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: 'Rubik', sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    position: relative;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.avatar-img {
+    width: 30px;
+    height: 30px;
+}
