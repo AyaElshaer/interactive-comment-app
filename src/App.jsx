@@ -1,10 +1,10 @@
-import { CommentForm } from "./components/CommentForm";
-import { CommentsList } from "./components/CommentsList";
+import { CommentForm } from "./comment/CommentForm";
+import { CommentsList } from "./comment/CommentsList";
 
 function App() {
   return (
     <>
-      <main className=" relative w-full flex justify-center bg-very-light-gray  py-2 lg:py-10">
+      <main className="relative w-full flex justify-center bg-very-light-gray  py-2 lg:py-10">
         <div className=" w-[90%] lg:w-3/6">
           <CommentsList />
           <CommentForm />

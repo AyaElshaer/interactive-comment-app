@@ -19,3 +19,48 @@ body {
     width: 30px;
     height: 30px;
 }
+
+.comment {
+    display: grid;
+    grid-template-columns: 30px auto auto 1fr;
+    grid-template-areas: "score info create-at action" "score content content content";
+    gap: 16px;
+    align-items: center;
+}
+
+.score-container {
+    grid-area: score;
+}
+
+.user-info {
+    grid-area: info;
+}
+
+.created-at {
+    grid-area: create-at;
+}
+
+.actions {
+    grid-area: action;
+    justify-content: flex-end;
+}
+
+.content {
+    grid-area: content;
+}
+
+@media (max-width: 600px) {
+    .comment {
+        grid-template-columns: auto auto;
+        grid-template-areas: "info create-at" "content content" "score action"
+    }
+
+    .created-at {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .score-container {
+        width: 100px;
+    }
+}
