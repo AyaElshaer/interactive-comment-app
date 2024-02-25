@@ -1,16 +1,21 @@
-/* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
+import { FormEvent, useState, ChangeEvent } from "react";
 
-import PostContext from "../context/comments";
+import { useComments } from "../context/comments";
 
 import { ActionButton, TextArea } from "../components";
 
-export function ReplayForm({ replyingTo, commentId, onFinish }) {
+type Props = {
+  commentId: string | undefined;
+  replyingTo: string;
+  onFinish: () => void;
+};
+
+export function ReplayForm({ replyingTo, commentId, onFinish }: Props) {
   const [reply, setReply] = useState("");
 
-  const { addReplayToComment, currentUser } = useContext(PostContext);
+  const { addReplayToComment, currentUser } = useComments();
 
-  const onReply = (e) => {
+  const onReply = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newReplay = {
@@ -21,8 +26,7 @@ export function ReplayForm({ replyingTo, commentId, onFinish }) {
       user: currentUser,
       createdAt: "2 days ago",
     };
-    console.log(newReplay);
-    addReplayToComment(commentId, newReplay);
+    commentId && addReplayToComment(commentId, newReplay);
 
     onFinish?.();
   };
@@ -39,7 +43,9 @@ export function ReplayForm({ replyingTo, commentId, onFinish }) {
       />
       <TextArea
         value={reply}
-        onChange={(e) => setReply(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+          setReply(e.target.value)
+        }
         placeholder="Add a replay..."
         className="col-span-3 lg:col-span-1"
       />
@@ -49,4 +55,4 @@ export function ReplayForm({ replyingTo, commentId, onFinish }) {
   );
 }
 
-const generateID = () => Math.floor(Math.random() * 1000);
+const generateID = () => Math.floor(Math.random() * 1000).toString();

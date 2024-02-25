@@ -1,6 +1,13 @@
-/* eslint-disable react/prop-types */
-import { useEffect } from "react";
+import { useEffect, type ComponentPropsWithoutRef } from "react";
 import { createPortal } from "react-dom";
+
+export type ModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+  closeOnOverlayClick?: boolean;
+  closeOnEscClick?: boolean;
+};
 
 export function Modal({
   isOpen,
@@ -8,11 +15,11 @@ export function Modal({
   children,
   closeOnOverlayClick = true,
   closeOnEscClick = true,
-}) {
+}: ModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
-    const handleKeydown = (e) => {
+    const handleKeydown = (e: KeyboardEvent) => {
       if (closeOnEscClick && e.key === "Escape") {
         onClose();
       }
@@ -38,26 +45,27 @@ export function Modal({
 
       <div className="bg-white rounded-lg p-6 w-96">{children}</div>
     </div>,
-    document.getElementById("root")
+    document.getElementById("root")!
   );
 }
 
-const Title = ({ children, className }) => (
-  <p className={`text-lg text-dark-blue font-medium ${className}`}>
-    {children}
-  </p>
+const Title = (props: ComponentPropsWithoutRef<"p">) => (
+  <p
+    {...props}
+    className={`text-lg text-dark-blue font-medium ${props.className}`}
+  />
 );
 
 Modal.Title = Title;
 
-const Description = ({ children, className }) => (
-  <p className={`text-sm text-grayish-blue" ${className}`}>{children}</p>
+const Description = (props: ComponentPropsWithoutRef<"p">) => (
+  <p {...props} className={`text-sm text-grayish-blue" ${props.className}`} />
 );
 
 Modal.Description = Description;
 
-const Footer = ({ children, className }) => (
-  <div className={`flex items-center gap-3 ${className}`}>{children}</div>
+const Footer = ({ children, ...props }: ComponentPropsWithoutRef<"footer">) => (
+  <footer {...props} className={`flex items-center gap-3 ${props.className}`} />
 );
 
 Modal.Footer = Footer;

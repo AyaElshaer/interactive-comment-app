@@ -1,6 +1,15 @@
 import { useState } from "react";
 
-export const useBoolean = (defaultIsOn = false) => {
+export type UseBooleanReturn = [
+  boolean,
+  {
+    toggle: () => void;
+    on: () => void;
+    off: () => void;
+  }
+];
+
+export const useBoolean = (defaultIsOn = false): UseBooleanReturn => {
   const [isOn, setIsOn] = useState(defaultIsOn);
 
   return [
@@ -12,4 +21,3 @@ export const useBoolean = (defaultIsOn = false) => {
     },
   ];
 };
-

@@ -1,22 +1,33 @@
-/* eslint-disable react/prop-types */
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 import { useDisclosure, useBoolean } from "../hooks";
-import PostContext from "../context/comments";
+import { useComments } from "../context/comments";
 
 import { EditForm, ReplayForm } from ".";
 import DeleteModal from "../components/DeleteModal";
+import { Comment, Reply } from "./types";
 
-export function CommentCard({ as = "comment", comment, parentCommentID }) {
-  const { user, content, score, createdAt, replyingTo } = comment;
+type CommentCardProps =
+  | {
+      as?: "comment";
+      comment: Comment;
+      parentCommentID?: never;
+    }
+  | {
+      as: "reply";
+      comment: Reply;
+      parentCommentID: string;
+    };
 
-  const { currentUser } = useContext(PostContext);
-
+export function CommentCard(props: CommentCardProps) {
+  const { currentUser } = useComments();
   const deleteModalDisclosure = useDisclosure();
 
-  const commentId = as === "comment" ? comment.id : parentCommentID;
+  const { user, content, score, createdAt } = props.comment;
 
-  const replyID = as === "reply" ? comment.id : undefined;
+  const commentId =
+    props.as === "reply" ? props.parentCommentID : props.comment.id;
+  const replyID = props.as === "reply" ? props.comment.id : undefined;
 
   const [scoreValue, setScoreValue] = useState(score);
 
@@ -24,7 +35,6 @@ export function CommentCard({ as = "comment", comment, parentCommentID }) {
   const [isEditing, setIsEditing] = useBoolean();
 
   const isMe = currentUser.username === user.username;
-  console.log(user.username);
 
   return (
     <>
@@ -113,9 +123,9 @@ export function CommentCard({ as = "comment", comment, parentCommentID }) {
             />
           ) : (
             <p className=" w-full lg:w-[90%] text-grayish-blue text-sm leading-5">
-              {replyingTo && (
+              {props.as === "reply" && (
                 <span className=" text-moderate-blue font-medium">
-                  {`@${replyingTo}`}
+                  {`@${props.comment.replyingTo}`}
                 </span>
               )}{" "}
               {content}
@@ -126,7 +136,7 @@ export function CommentCard({ as = "comment", comment, parentCommentID }) {
 
       {isReplying && (
         <ReplayForm
-          replyingTo={comment.user.username}
+          replyingTo={user.username}
           commentId={commentId}
           onFinish={setIsReplying.off}
         />

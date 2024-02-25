@@ -1,19 +1,19 @@
-import { useContext, useState } from "react";
+import { FormEvent, useState } from "react";
 import { v1 as uuidv1 } from "uuid";
 
 import data from "../../data.json";
-import PostContext from "../context/comments";
+import { useComments } from "../context/comments";
 
 import { ActionButton } from "../components";
 
 export function CommentForm() {
   const currentUser = data.currentUser;
 
-  const [content, setContent] = useState();
+  const [content, setContent] = useState<string>("");
 
-  const { addComment } = useContext(PostContext);
+  const { addComment } = useComments();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newComment = {
@@ -46,9 +46,7 @@ export function CommentForm() {
         placeholder="Add a comment..."
       />
 
-      <ActionButton onSubmit={handleSubmit} className="col-start-3 ">
-        send
-      </ActionButton>
+      <ActionButton className="col-start-3 ">send</ActionButton>
     </form>
   );
 }

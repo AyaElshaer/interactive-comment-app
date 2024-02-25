@@ -1,7 +1,7 @@
 import { CommentForm } from "./comment/CommentForm";
 import { CommentsList } from "./comment/CommentsList";
 
-function App() {
+const App = () => {
   return (
     <>
       <main className="relative w-full flex justify-center bg-very-light-gray  py-2 lg:py-10">
@@ -12,6 +12,6 @@ function App() {
       </main>
     </>
   );
-}
+};
 
 export default App;

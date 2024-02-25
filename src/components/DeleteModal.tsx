@@ -1,13 +1,21 @@
-/* eslint-disable react/prop-types */
-
 import { useComments } from "../context/comments";
-import { Modal } from "./Modal";
+import { Modal, type ModalProps } from "./Modal";
 
-export default function DeleteModal({ commentId, replayId, ...props }) {
+interface DeleteModalProps extends Omit<ModalProps, "children"> {
+  commentId: string;
+  replayId?: string;
+}
+
+export default function DeleteModal({
+  commentId,
+  replayId,
+  ...props
+}: DeleteModalProps) {
   const { deleteComment } = useComments();
 
   const handleDelete = () => {
     deleteComment(commentId, replayId);
+
     props.onClose();
   };
 
