@@ -5,9 +5,9 @@ import { useComments } from "../context/comments";
 import { TextArea, ActionButton } from "../components";
 
 type Props = {
-  commentID: string | undefined;
+  commentID: string;
   content: string;
-  replyID: string | undefined;
+  replyID?: string ;
   onFinish: () => void;
 };
 
@@ -18,8 +18,8 @@ export function EditForm({ commentID, content, replyID, onFinish }: Props) {
 
   const onEdit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    replyID && commentID && editComment(commentID, editedComment, replyID);
+   
+    editComment(commentID, editedComment, replyID);
 
     onFinish?.();
   };

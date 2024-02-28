@@ -5,7 +5,7 @@ import { useComments } from "../context/comments";
 import { ActionButton, TextArea } from "../components";
 
 type Props = {
-  commentId: string | undefined;
+  commentId: string ;
   replyingTo: string;
   onFinish: () => void;
 };
@@ -26,7 +26,7 @@ export function ReplayForm({ replyingTo, commentId, onFinish }: Props) {
       user: currentUser,
       createdAt: "2 days ago",
     };
-    commentId && addReplayToComment(commentId, newReplay);
+    addReplayToComment(commentId, newReplay);
 
     onFinish?.();
   };

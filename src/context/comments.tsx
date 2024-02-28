@@ -9,7 +9,7 @@ interface CommentContext {
   addComment: (comment: Comment) => void;
   addReplayToComment: (commentId: string, replay: Reply) => void;
   deleteComment: (commentId: string, replayId?: string) => void;
-  editComment: (commentId: string, content: string, replayId: string) => void;
+  editComment: (commentId: string, content: string, replayId?: string) => void;
 }
 
 const CommentContext = createContext<CommentContext | null>(null);
@@ -41,11 +41,7 @@ export function CommentProvider({ children }: { children: React.ReactNode }) {
     setComments(newComments);
   };
 
-  const editComment = (
-    commentId: string,
-    content: string,
-    replayId: string
-  ) => {
+  const editComment: CommentContext["editComment"] = (commentId, content, replayId) => {
     if (!replayId) {
       setComments(
         comments.map((comment) =>

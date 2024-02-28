@@ -43,7 +43,7 @@ export function Modal({
         onClick={closeOnOverlayClick ? onClose : undefined}
       />
 
-      <div className="bg-white rounded-lg p-6 w-96">{children}</div>
+      <div className="bg-white rounded-lg p-6 lg:w-[380px]">{children}</div>
     </div>,
     document.getElementById("root")!
   );
@@ -65,7 +65,7 @@ const Description = (props: ComponentPropsWithoutRef<"p">) => (
 Modal.Description = Description;
 
 const Footer = ({ children, ...props }: ComponentPropsWithoutRef<"footer">) => (
-  <footer {...props} className={`flex items-center gap-3 ${props.className}`} />
+  <footer {...props} className={`flex items-center gap-3 ${props.className}`} > {children} </footer>
 );
 
 Modal.Footer = Footer;

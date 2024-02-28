@@ -39,7 +39,7 @@ export function CommentCard(props: CommentCardProps) {
   return (
     <>
       <div className="comment w-full bg-white mb-4 rounded-lg p-4 lg:p-5 flex flex-col-reverse lg:flex-row gap-4">
-        <div className="score-container flex flex-row lg:flex-col justify-around items-center lg:h-24 p-2 lg:p-0 w-auto rounded-lg bg-very-light-gray text-moderate-blue font-medium">
+        <div className="score-container flex flex-row lg:flex-col justify-around items-center h-8 lg:h-24 p-2 lg:p-0 w-auto rounded-lg bg-very-light-gray text-moderate-blue font-medium">
           <button
             onClick={() => setScoreValue(scoreValue + 1)}
             className="py-3 text-light-gray hover:text-moderate-blue "

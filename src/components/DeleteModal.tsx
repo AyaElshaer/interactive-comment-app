@@ -23,7 +23,7 @@ export default function DeleteModal({
     <Modal {...props}>
       <Modal.Title>Delete comment</Modal.Title>
 
-      <Modal.Description className="w-[90%] my-4">
+      <Modal.Description className=" w-full lg:w-[90%] my-4 text-grayish-blue text-base">
         Are you want to delete this comment? This will remove the comment and
         can not be undone.
       </Modal.Description>
